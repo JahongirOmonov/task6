@@ -6,6 +6,7 @@ from .serializer import jadvalSerializer, phoneSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -26,6 +27,11 @@ from rest_framework import generics
 class GetAllJadval(generics.ListAPIView):
     queryset=jadval.objects.all()
     serializer_class=jadvalSerializer
+    permission_classes=(IsAuthenticated,)
+
+    def get_queryset(self):
+        print(self.request.user)
+        return jadval.objects.all()
 
 
 
@@ -88,6 +94,11 @@ class AllFunctionJadval(generics.RetrieveUpdateDestroyAPIView):
 class GetAllPhone(generics.ListAPIView):
     queryset=phone.objects.all()
     serializer_class=phoneSerializer
+    permission_classes=(IsAuthenticated,)
+
+    def get_queryset(self):
+        print(self.request.user)
+        return phone.objects.all()
 
 
 
